@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.second.ssm.mapper.CarriersMapper" >
+  <resultMap id="BaseResultMap" type="com.second.ssm.pojo.Carriers" >
+    <id column="CarriersID" property="carriersid" jdbcType="INTEGER" />
+    <result column="SendCompany" property="sendcompany" jdbcType="VARCHAR" />
+    <result column="SendAddress" property="sendaddress" jdbcType="VARCHAR" />
+    <result column="SendLinkman" property="sendlinkman" jdbcType="VARCHAR" />
+    <result column="SendPhone" property="sendphone" jdbcType="VARCHAR" />
+    <result column="ReceiveCompany" property="receivecompany" jdbcType="VARCHAR" />
+    <result column="FK_ReceiveAddress" property="fkReceiveaddress" jdbcType="VARCHAR" />
+    <result column="ReceiveLinkman" property="receivelinkman" jdbcType="VARCHAR" />
+    <result column="ReceivePhone" property="receivephone" jdbcType="VARCHAR" />
+    <result column="LeaverDate" property="leaverdate" jdbcType="TIMESTAMP" />
+    <result column="ReceiveDate" property="receivedate" jdbcType="TIMESTAMP" />
+    <result column="FinishedState" property="finishedstate" jdbcType="INTEGER" />
+    <result column="InsuranceCost" property="insurancecost" jdbcType="REAL" />
+    <result column="TransportCost" property="transportcost" jdbcType="REAL" />
+    <result column="OtherCost" property="othercost" jdbcType="REAL" />
+    <result column="TotalCost" property="totalcost" jdbcType="REAL" />
+    <result column="FK_UserID" property="fkUserid" jdbcType="INTEGER" />
+    <result column="CheckInTime" property="checkintime" jdbcType="TIMESTAMP" />
+    <result column="IsDelete" property="isdelete" jdbcType="INTEGER" />
+    <result column="AlterTime" property="altertime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    CarriersID, SendCompany, SendAddress, SendLinkman, SendPhone, ReceiveCompany, FK_ReceiveAddress, 
+    ReceiveLinkman, ReceivePhone, LeaverDate, ReceiveDate, FinishedState, InsuranceCost, 
+    TransportCost, OtherCost, TotalCost, FK_UserID, CheckInTime, IsDelete, AlterTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.second.ssm.pojo.CarriersExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from carriers
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from carriers
+    where CarriersID = #{carriersid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from carriers
+    where CarriersID = #{carriersid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.second.ssm.pojo.CarriersExample" >
+    delete from carriers
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.second.ssm.pojo.Carriers" >
+    insert into carriers (CarriersID, SendCompany, SendAddress, 
+      SendLinkman, SendPhone, ReceiveCompany, 
+      FK_ReceiveAddress, ReceiveLinkman, ReceivePhone, 
+      LeaverDate, ReceiveDate, FinishedState, 
+      InsuranceCost, TransportCost, OtherCost, 
+      TotalCost, FK_UserID, CheckInTime, 
+      IsDelete, AlterTime)
+    values (#{carriersid,jdbcType=INTEGER}, #{sendcompany,jdbcType=VARCHAR}, #{sendaddress,jdbcType=VARCHAR}, 
+      #{sendlinkman,jdbcType=VARCHAR}, #{sendphone,jdbcType=VARCHAR}, #{receivecompany,jdbcType=VARCHAR}, 
+      #{fkReceiveaddress,jdbcType=VARCHAR}, #{receivelinkman,jdbcType=VARCHAR}, #{receivephone,jdbcType=VARCHAR}, 
+      #{leaverdate,jdbcType=TIMESTAMP}, #{receivedate,jdbcType=TIMESTAMP}, #{finishedstate,jdbcType=INTEGER}, 
+      #{insurancecost,jdbcType=REAL}, #{transportcost,jdbcType=REAL}, #{othercost,jdbcType=REAL}, 
+      #{totalcost,jdbcType=REAL}, #{fkUserid,jdbcType=INTEGER}, #{checkintime,jdbcType=TIMESTAMP}, 
+      #{isdelete,jdbcType=INTEGER}, #{altertime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.second.ssm.pojo.Carriers" >
+    insert into carriers
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="carriersid != null" >
+        CarriersID,
+      </if>
+      <if test="sendcompany != null" >
+        SendCompany,
+      </if>
+      <if test="sendaddress != null" >
+        SendAddress,
+      </if>
+      <if test="sendlinkman != null" >
+        SendLinkman,
+      </if>
+      <if test="sendphone != null" >
+        SendPhone,
+      </if>
+      <if test="receivecompany != null" >
+        ReceiveCompany,
+      </if>
+      <if test="fkReceiveaddress != null" >
+        FK_ReceiveAddress,
+      </if>
+      <if test="receivelinkman != null" >
+        ReceiveLinkman,
+      </if>
+      <if test="receivephone != null" >
+        ReceivePhone,
+      </if>
+      <if test="leaverdate != null" >
+        LeaverDate,
+      </if>
+      <if test="receivedate != null" >
+        ReceiveDate,
+      </if>
+      <if test="finishedstate != null" >
+        FinishedState,
+      </if>
+      <if test="insurancecost != null" >
+        InsuranceCost,
+      </if>
+      <if test="transportcost != null" >
+        TransportCost,
+      </if>
+      <if test="othercost != null" >
+        OtherCost,
+      </if>
+      <if test="totalcost != null" >
+        TotalCost,
+      </if>
+      <if test="fkUserid != null" >
+        FK_UserID,
+      </if>
+      <if test="checkintime != null" >
+        CheckInTime,
+      </if>
+      <if test="isdelete != null" >
+        IsDelete,
+      </if>
+      <if test="altertime != null" >
+        AlterTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="carriersid != null" >
+        #{carriersid,jdbcType=INTEGER},
+      </if>
+      <if test="sendcompany != null" >
+        #{sendcompany,jdbcType=VARCHAR},
+      </if>
+      <if test="sendaddress != null" >
+        #{sendaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="sendlinkman != null" >
+        #{sendlinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="sendphone != null" >
+        #{sendphone,jdbcType=VARCHAR},
+      </if>
+      <if test="receivecompany != null" >
+        #{receivecompany,jdbcType=VARCHAR},
+      </if>
+      <if test="fkReceiveaddress != null" >
+        #{fkReceiveaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receivelinkman != null" >
+        #{receivelinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="receivephone != null" >
+        #{receivephone,jdbcType=VARCHAR},
+      </if>
+      <if test="leaverdate != null" >
+        #{leaverdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receivedate != null" >
+        #{receivedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishedstate != null" >
+        #{finishedstate,jdbcType=INTEGER},
+      </if>
+      <if test="insurancecost != null" >
+        #{insurancecost,jdbcType=REAL},
+      </if>
+      <if test="transportcost != null" >
+        #{transportcost,jdbcType=REAL},
+      </if>
+      <if test="othercost != null" >
+        #{othercost,jdbcType=REAL},
+      </if>
+      <if test="totalcost != null" >
+        #{totalcost,jdbcType=REAL},
+      </if>
+      <if test="fkUserid != null" >
+        #{fkUserid,jdbcType=INTEGER},
+      </if>
+      <if test="checkintime != null" >
+        #{checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdelete != null" >
+        #{isdelete,jdbcType=INTEGER},
+      </if>
+      <if test="altertime != null" >
+        #{altertime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.second.ssm.pojo.CarriersExample" resultType="java.lang.Integer" >
+    select count(*) from carriers
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update carriers
+    <set >
+      <if test="record.carriersid != null" >
+        CarriersID = #{record.carriersid,jdbcType=INTEGER},
+      </if>
+      <if test="record.sendcompany != null" >
+        SendCompany = #{record.sendcompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendaddress != null" >
+        SendAddress = #{record.sendaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendlinkman != null" >
+        SendLinkman = #{record.sendlinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendphone != null" >
+        SendPhone = #{record.sendphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receivecompany != null" >
+        ReceiveCompany = #{record.receivecompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fkReceiveaddress != null" >
+        FK_ReceiveAddress = #{record.fkReceiveaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receivelinkman != null" >
+        ReceiveLinkman = #{record.receivelinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receivephone != null" >
+        ReceivePhone = #{record.receivephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.leaverdate != null" >
+        LeaverDate = #{record.leaverdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.receivedate != null" >
+        ReceiveDate = #{record.receivedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.finishedstate != null" >
+        FinishedState = #{record.finishedstate,jdbcType=INTEGER},
+      </if>
+      <if test="record.insurancecost != null" >
+        InsuranceCost = #{record.insurancecost,jdbcType=REAL},
+      </if>
+      <if test="record.transportcost != null" >
+        TransportCost = #{record.transportcost,jdbcType=REAL},
+      </if>
+      <if test="record.othercost != null" >
+        OtherCost = #{record.othercost,jdbcType=REAL},
+      </if>
+      <if test="record.totalcost != null" >
+        TotalCost = #{record.totalcost,jdbcType=REAL},
+      </if>
+      <if test="record.fkUserid != null" >
+        FK_UserID = #{record.fkUserid,jdbcType=INTEGER},
+      </if>
+      <if test="record.checkintime != null" >
+        CheckInTime = #{record.checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isdelete != null" >
+        IsDelete = #{record.isdelete,jdbcType=INTEGER},
+      </if>
+      <if test="record.altertime != null" >
+        AlterTime = #{record.altertime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update carriers
+    set CarriersID = #{record.carriersid,jdbcType=INTEGER},
+      SendCompany = #{record.sendcompany,jdbcType=VARCHAR},
+      SendAddress = #{record.sendaddress,jdbcType=VARCHAR},
+      SendLinkman = #{record.sendlinkman,jdbcType=VARCHAR},
+      SendPhone = #{record.sendphone,jdbcType=VARCHAR},
+      ReceiveCompany = #{record.receivecompany,jdbcType=VARCHAR},
+      FK_ReceiveAddress = #{record.fkReceiveaddress,jdbcType=VARCHAR},
+      ReceiveLinkman = #{record.receivelinkman,jdbcType=VARCHAR},
+      ReceivePhone = #{record.receivephone,jdbcType=VARCHAR},
+      LeaverDate = #{record.leaverdate,jdbcType=TIMESTAMP},
+      ReceiveDate = #{record.receivedate,jdbcType=TIMESTAMP},
+      FinishedState = #{record.finishedstate,jdbcType=INTEGER},
+      InsuranceCost = #{record.insurancecost,jdbcType=REAL},
+      TransportCost = #{record.transportcost,jdbcType=REAL},
+      OtherCost = #{record.othercost,jdbcType=REAL},
+      TotalCost = #{record.totalcost,jdbcType=REAL},
+      FK_UserID = #{record.fkUserid,jdbcType=INTEGER},
+      CheckInTime = #{record.checkintime,jdbcType=TIMESTAMP},
+      IsDelete = #{record.isdelete,jdbcType=INTEGER},
+      AlterTime = #{record.altertime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.second.ssm.pojo.Carriers" >
+    update carriers
+    <set >
+      <if test="sendcompany != null" >
+        SendCompany = #{sendcompany,jdbcType=VARCHAR},
+      </if>
+      <if test="sendaddress != null" >
+        SendAddress = #{sendaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="sendlinkman != null" >
+        SendLinkman = #{sendlinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="sendphone != null" >
+        SendPhone = #{sendphone,jdbcType=VARCHAR},
+      </if>
+      <if test="receivecompany != null" >
+        ReceiveCompany = #{receivecompany,jdbcType=VARCHAR},
+      </if>
+      <if test="fkReceiveaddress != null" >
+        FK_ReceiveAddress = #{fkReceiveaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receivelinkman != null" >
+        ReceiveLinkman = #{receivelinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="receivephone != null" >
+        ReceivePhone = #{receivephone,jdbcType=VARCHAR},
+      </if>
+      <if test="leaverdate != null" >
+        LeaverDate = #{leaverdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receivedate != null" >
+        ReceiveDate = #{receivedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishedstate != null" >
+        FinishedState = #{finishedstate,jdbcType=INTEGER},
+      </if>
+      <if test="insurancecost != null" >
+        InsuranceCost = #{insurancecost,jdbcType=REAL},
+      </if>
+      <if test="transportcost != null" >
+        TransportCost = #{transportcost,jdbcType=REAL},
+      </if>
+      <if test="othercost != null" >
+        OtherCost = #{othercost,jdbcType=REAL},
+      </if>
+      <if test="totalcost != null" >
+        TotalCost = #{totalcost,jdbcType=REAL},
+      </if>
+      <if test="fkUserid != null" >
+        FK_UserID = #{fkUserid,jdbcType=INTEGER},
+      </if>
+      <if test="checkintime != null" >
+        CheckInTime = #{checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdelete != null" >
+        IsDelete = #{isdelete,jdbcType=INTEGER},
+      </if>
+      <if test="altertime != null" >
+        AlterTime = #{altertime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where CarriersID = #{carriersid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.second.ssm.pojo.Carriers" >
+    update carriers
+    set SendCompany = #{sendcompany,jdbcType=VARCHAR},
+      SendAddress = #{sendaddress,jdbcType=VARCHAR},
+      SendLinkman = #{sendlinkman,jdbcType=VARCHAR},
+      SendPhone = #{sendphone,jdbcType=VARCHAR},
+      ReceiveCompany = #{receivecompany,jdbcType=VARCHAR},
+      FK_ReceiveAddress = #{fkReceiveaddress,jdbcType=VARCHAR},
+      ReceiveLinkman = #{receivelinkman,jdbcType=VARCHAR},
+      ReceivePhone = #{receivephone,jdbcType=VARCHAR},
+      LeaverDate = #{leaverdate,jdbcType=TIMESTAMP},
+      ReceiveDate = #{receivedate,jdbcType=TIMESTAMP},
+      FinishedState = #{finishedstate,jdbcType=INTEGER},
+      InsuranceCost = #{insurancecost,jdbcType=REAL},
+      TransportCost = #{transportcost,jdbcType=REAL},
+      OtherCost = #{othercost,jdbcType=REAL},
+      TotalCost = #{totalcost,jdbcType=REAL},
+      FK_UserID = #{fkUserid,jdbcType=INTEGER},
+      CheckInTime = #{checkintime,jdbcType=TIMESTAMP},
+      IsDelete = #{isdelete,jdbcType=INTEGER},
+      AlterTime = #{altertime,jdbcType=TIMESTAMP}
+    where CarriersID = #{carriersid,jdbcType=INTEGER}
+  </update>
+</mapper>

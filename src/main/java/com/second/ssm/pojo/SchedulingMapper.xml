@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.second.ssm.mapper.SchedulingMapper" >
+  <resultMap id="BaseResultMap" type="com.second.ssm.pojo.Scheduling" >
+    <id column="SchedulingID" property="schedulingid" jdbcType="INTEGER" />
+    <result column="StartTime" property="starttime" jdbcType="TIMESTAMP" />
+    <result column="FK_CarriersID" property="fkCarriersid" jdbcType="INTEGER" />
+    <result column="FK_TruckID" property="fkTruckid" jdbcType="INTEGER" />
+    <result column="OilCost" property="oilcost" jdbcType="REAL" />
+    <result column="Toll" property="toll" jdbcType="REAL" />
+    <result column="Fine" property="fine" jdbcType="REAL" />
+    <result column="OtherCost" property="othercost" jdbcType="REAL" />
+    <result column="TotalCost" property="totalcost" jdbcType="REAL" />
+    <result column="FK_UserID" property="fkUserid" jdbcType="INTEGER" />
+    <result column="CheckInTime" property="checkintime" jdbcType="TIMESTAMP" />
+    <result column="IsDelete" property="isdelete" jdbcType="INTEGER" />
+    <result column="AlterTime" property="altertime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SchedulingID, StartTime, FK_CarriersID, FK_TruckID, OilCost, Toll, Fine, OtherCost, 
+    TotalCost, FK_UserID, CheckInTime, IsDelete, AlterTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.second.ssm.pojo.SchedulingExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from scheduling
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from scheduling
+    where SchedulingID = #{schedulingid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from scheduling
+    where SchedulingID = #{schedulingid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.second.ssm.pojo.SchedulingExample" >
+    delete from scheduling
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.second.ssm.pojo.Scheduling" >
+    insert into scheduling (SchedulingID, StartTime, FK_CarriersID, 
+      FK_TruckID, OilCost, Toll, 
+      Fine, OtherCost, TotalCost, 
+      FK_UserID, CheckInTime, IsDelete, 
+      AlterTime)
+    values (#{schedulingid,jdbcType=INTEGER}, #{starttime,jdbcType=TIMESTAMP}, #{fkCarriersid,jdbcType=INTEGER}, 
+      #{fkTruckid,jdbcType=INTEGER}, #{oilcost,jdbcType=REAL}, #{toll,jdbcType=REAL}, 
+      #{fine,jdbcType=REAL}, #{othercost,jdbcType=REAL}, #{totalcost,jdbcType=REAL}, 
+      #{fkUserid,jdbcType=INTEGER}, #{checkintime,jdbcType=TIMESTAMP}, #{isdelete,jdbcType=INTEGER}, 
+      #{altertime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.second.ssm.pojo.Scheduling" >
+    insert into scheduling
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="schedulingid != null" >
+        SchedulingID,
+      </if>
+      <if test="starttime != null" >
+        StartTime,
+      </if>
+      <if test="fkCarriersid != null" >
+        FK_CarriersID,
+      </if>
+      <if test="fkTruckid != null" >
+        FK_TruckID,
+      </if>
+      <if test="oilcost != null" >
+        OilCost,
+      </if>
+      <if test="toll != null" >
+        Toll,
+      </if>
+      <if test="fine != null" >
+        Fine,
+      </if>
+      <if test="othercost != null" >
+        OtherCost,
+      </if>
+      <if test="totalcost != null" >
+        TotalCost,
+      </if>
+      <if test="fkUserid != null" >
+        FK_UserID,
+      </if>
+      <if test="checkintime != null" >
+        CheckInTime,
+      </if>
+      <if test="isdelete != null" >
+        IsDelete,
+      </if>
+      <if test="altertime != null" >
+        AlterTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="schedulingid != null" >
+        #{schedulingid,jdbcType=INTEGER},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fkCarriersid != null" >
+        #{fkCarriersid,jdbcType=INTEGER},
+      </if>
+      <if test="fkTruckid != null" >
+        #{fkTruckid,jdbcType=INTEGER},
+      </if>
+      <if test="oilcost != null" >
+        #{oilcost,jdbcType=REAL},
+      </if>
+      <if test="toll != null" >
+        #{toll,jdbcType=REAL},
+      </if>
+      <if test="fine != null" >
+        #{fine,jdbcType=REAL},
+      </if>
+      <if test="othercost != null" >
+        #{othercost,jdbcType=REAL},
+      </if>
+      <if test="totalcost != null" >
+        #{totalcost,jdbcType=REAL},
+      </if>
+      <if test="fkUserid != null" >
+        #{fkUserid,jdbcType=INTEGER},
+      </if>
+      <if test="checkintime != null" >
+        #{checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdelete != null" >
+        #{isdelete,jdbcType=INTEGER},
+      </if>
+      <if test="altertime != null" >
+        #{altertime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.second.ssm.pojo.SchedulingExample" resultType="java.lang.Integer" >
+    select count(*) from scheduling
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update scheduling
+    <set >
+      <if test="record.schedulingid != null" >
+        SchedulingID = #{record.schedulingid,jdbcType=INTEGER},
+      </if>
+      <if test="record.starttime != null" >
+        StartTime = #{record.starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fkCarriersid != null" >
+        FK_CarriersID = #{record.fkCarriersid,jdbcType=INTEGER},
+      </if>
+      <if test="record.fkTruckid != null" >
+        FK_TruckID = #{record.fkTruckid,jdbcType=INTEGER},
+      </if>
+      <if test="record.oilcost != null" >
+        OilCost = #{record.oilcost,jdbcType=REAL},
+      </if>
+      <if test="record.toll != null" >
+        Toll = #{record.toll,jdbcType=REAL},
+      </if>
+      <if test="record.fine != null" >
+        Fine = #{record.fine,jdbcType=REAL},
+      </if>
+      <if test="record.othercost != null" >
+        OtherCost = #{record.othercost,jdbcType=REAL},
+      </if>
+      <if test="record.totalcost != null" >
+        TotalCost = #{record.totalcost,jdbcType=REAL},
+      </if>
+      <if test="record.fkUserid != null" >
+        FK_UserID = #{record.fkUserid,jdbcType=INTEGER},
+      </if>
+      <if test="record.checkintime != null" >
+        CheckInTime = #{record.checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isdelete != null" >
+        IsDelete = #{record.isdelete,jdbcType=INTEGER},
+      </if>
+      <if test="record.altertime != null" >
+        AlterTime = #{record.altertime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update scheduling
+    set SchedulingID = #{record.schedulingid,jdbcType=INTEGER},
+      StartTime = #{record.starttime,jdbcType=TIMESTAMP},
+      FK_CarriersID = #{record.fkCarriersid,jdbcType=INTEGER},
+      FK_TruckID = #{record.fkTruckid,jdbcType=INTEGER},
+      OilCost = #{record.oilcost,jdbcType=REAL},
+      Toll = #{record.toll,jdbcType=REAL},
+      Fine = #{record.fine,jdbcType=REAL},
+      OtherCost = #{record.othercost,jdbcType=REAL},
+      TotalCost = #{record.totalcost,jdbcType=REAL},
+      FK_UserID = #{record.fkUserid,jdbcType=INTEGER},
+      CheckInTime = #{record.checkintime,jdbcType=TIMESTAMP},
+      IsDelete = #{record.isdelete,jdbcType=INTEGER},
+      AlterTime = #{record.altertime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.second.ssm.pojo.Scheduling" >
+    update scheduling
+    <set >
+      <if test="starttime != null" >
+        StartTime = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fkCarriersid != null" >
+        FK_CarriersID = #{fkCarriersid,jdbcType=INTEGER},
+      </if>
+      <if test="fkTruckid != null" >
+        FK_TruckID = #{fkTruckid,jdbcType=INTEGER},
+      </if>
+      <if test="oilcost != null" >
+        OilCost = #{oilcost,jdbcType=REAL},
+      </if>
+      <if test="toll != null" >
+        Toll = #{toll,jdbcType=REAL},
+      </if>
+      <if test="fine != null" >
+        Fine = #{fine,jdbcType=REAL},
+      </if>
+      <if test="othercost != null" >
+        OtherCost = #{othercost,jdbcType=REAL},
+      </if>
+      <if test="totalcost != null" >
+        TotalCost = #{totalcost,jdbcType=REAL},
+      </if>
+      <if test="fkUserid != null" >
+        FK_UserID = #{fkUserid,jdbcType=INTEGER},
+      </if>
+      <if test="checkintime != null" >
+        CheckInTime = #{checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdelete != null" >
+        IsDelete = #{isdelete,jdbcType=INTEGER},
+      </if>
+      <if test="altertime != null" >
+        AlterTime = #{altertime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where SchedulingID = #{schedulingid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.second.ssm.pojo.Scheduling" >
+    update scheduling
+    set StartTime = #{starttime,jdbcType=TIMESTAMP},
+      FK_CarriersID = #{fkCarriersid,jdbcType=INTEGER},
+      FK_TruckID = #{fkTruckid,jdbcType=INTEGER},
+      OilCost = #{oilcost,jdbcType=REAL},
+      Toll = #{toll,jdbcType=REAL},
+      Fine = #{fine,jdbcType=REAL},
+      OtherCost = #{othercost,jdbcType=REAL},
+      TotalCost = #{totalcost,jdbcType=REAL},
+      FK_UserID = #{fkUserid,jdbcType=INTEGER},
+      CheckInTime = #{checkintime,jdbcType=TIMESTAMP},
+      IsDelete = #{isdelete,jdbcType=INTEGER},
+      AlterTime = #{altertime,jdbcType=TIMESTAMP}
+    where SchedulingID = #{schedulingid,jdbcType=INTEGER}
+  </update>
+</mapper>

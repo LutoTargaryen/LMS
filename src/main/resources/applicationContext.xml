@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- 配置通过扫描方式管理Service对象 -->
+	<context:component-scan base-package="com.second.ssm.service.impl" />
+	<!-- 注解方式加载配置文件 -->
+	<context:property-placeholder location="classpath:datasource.properties" />
+	<!-- 配置数据源 -->
+	<bean id="myds" class="com.alibaba.druid.pool.DruidDataSource">
+		<!-- <property name="driverClass" value="${connection.driver_class}" /> -->
+		<property name="url" value="${connection.url}" />
+		<property name="username" value="${connection.username}" />
+		<property name="password" value="${connection.password}" />
+		<property name="maxActive" value="${maxActive}" />
+		<property name="initialSize" value="${initialSize}" />
+		<property name="maxWait" value="${maxWait}" />
+		<property name="minIdle" value="${minIdle}" />
+		<property name="removeAbandoned" value="${removeAbandoned}" />
+		<property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" />
+		<property name="logAbandoned" value="${logAbandoned}" />
+	</bean>
+	<!-- spring注入sqlSessionFactory对象 -->
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 加载数据源 -->
+		<property name="dataSource" ref="myds" />
+		<!-- 加载mybatis配置文件 -->
+		<!-- <property name="configLocation" value=""/> -->
+		<!-- 加载mapper映射的xml文件 -->
+		<property name="mapperLocations" value="classpath:com/second/ssm/pojo/*Mapper.xml" />
+		<!-- 定义实体对象的别名 -->
+		<property name="typeAliasesPackage" value="com.second.ssm.pojo"></property>
+	</bean>
+	<!-- 扫描方式生产map接口对应代理实现类 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.second.ssm.mapper" />
+	</bean>
+
+	<!-- 配置事物管理对象 -->
+	<bean id="mytx"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="myds" />
+	</bean>
+	<!-- 配置事物拦截器对象 -->
+	<bean id="mytxi"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<!-- 注入事物管理对象 -->
+		<property name="transactionManager" ref="mytx" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="get*">PROPAGATION_SUPPORTS,readOnly</prop>
+				<prop key="find*">PROPAGATION_SUPPORTS,readOnly</prop>
+				<prop key="list*">PROPAGATION_SUPPORTS,readOnly</prop>
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="insert*">PROPAGATION_REQUIRED</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="remove*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="*">PROPAGATION_SUPPORTS,readOnly,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- 通过名称自动代理使用事物管理 -->
+	<bean id="beanNameAutoProxyCreator"
+		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<!-- 拦截spring容器中管理对象的后缀 -->
+		<property name="beanNames" value="*Service" />
+		<!-- 注入事物拦截器 -->
+		<property name="interceptorNames" value="mytxi"></property>
+	</bean>
+
+</beans>

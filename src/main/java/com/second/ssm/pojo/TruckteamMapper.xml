@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.second.ssm.mapper.TruckteamMapper" >
+  <resultMap id="BaseResultMap" type="com.second.ssm.pojo.Truckteam" >
+    <id column="TeamId" property="teamid" jdbcType="INTEGER" />
+    <result column="TeamName" property="teamname" jdbcType="VARCHAR" />
+    <result column="Leader" property="leader" jdbcType="VARCHAR" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+    <result column="CheckInTime" property="checkintime" jdbcType="TIMESTAMP" />
+    <result column="IsDelete" property="isdelete" jdbcType="INTEGER" />
+    <result column="AlterTime" property="altertime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TeamId, TeamName, Leader, Remark, CheckInTime, IsDelete, AlterTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.second.ssm.pojo.TruckteamExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from truckteam
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from truckteam
+    where TeamId = #{teamid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from truckteam
+    where TeamId = #{teamid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.second.ssm.pojo.TruckteamExample" >
+    delete from truckteam
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.second.ssm.pojo.Truckteam" >
+    insert into truckteam (TeamId, TeamName, Leader, 
+      Remark, CheckInTime, IsDelete, 
+      AlterTime)
+    values (#{teamid,jdbcType=INTEGER}, #{teamname,jdbcType=VARCHAR}, #{leader,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{checkintime,jdbcType=TIMESTAMP}, #{isdelete,jdbcType=INTEGER}, 
+      #{altertime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.second.ssm.pojo.Truckteam" >
+    insert into truckteam
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="teamid != null" >
+        TeamId,
+      </if>
+      <if test="teamname != null" >
+        TeamName,
+      </if>
+      <if test="leader != null" >
+        Leader,
+      </if>
+      <if test="remark != null" >
+        Remark,
+      </if>
+      <if test="checkintime != null" >
+        CheckInTime,
+      </if>
+      <if test="isdelete != null" >
+        IsDelete,
+      </if>
+      <if test="altertime != null" >
+        AlterTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="teamid != null" >
+        #{teamid,jdbcType=INTEGER},
+      </if>
+      <if test="teamname != null" >
+        #{teamname,jdbcType=VARCHAR},
+      </if>
+      <if test="leader != null" >
+        #{leader,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="checkintime != null" >
+        #{checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdelete != null" >
+        #{isdelete,jdbcType=INTEGER},
+      </if>
+      <if test="altertime != null" >
+        #{altertime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.second.ssm.pojo.TruckteamExample" resultType="java.lang.Integer" >
+    select count(*) from truckteam
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update truckteam
+    <set >
+      <if test="record.teamid != null" >
+        TeamId = #{record.teamid,jdbcType=INTEGER},
+      </if>
+      <if test="record.teamname != null" >
+        TeamName = #{record.teamname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.leader != null" >
+        Leader = #{record.leader,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        Remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkintime != null" >
+        CheckInTime = #{record.checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isdelete != null" >
+        IsDelete = #{record.isdelete,jdbcType=INTEGER},
+      </if>
+      <if test="record.altertime != null" >
+        AlterTime = #{record.altertime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update truckteam
+    set TeamId = #{record.teamid,jdbcType=INTEGER},
+      TeamName = #{record.teamname,jdbcType=VARCHAR},
+      Leader = #{record.leader,jdbcType=VARCHAR},
+      Remark = #{record.remark,jdbcType=VARCHAR},
+      CheckInTime = #{record.checkintime,jdbcType=TIMESTAMP},
+      IsDelete = #{record.isdelete,jdbcType=INTEGER},
+      AlterTime = #{record.altertime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.second.ssm.pojo.Truckteam" >
+    update truckteam
+    <set >
+      <if test="teamname != null" >
+        TeamName = #{teamname,jdbcType=VARCHAR},
+      </if>
+      <if test="leader != null" >
+        Leader = #{leader,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        Remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="checkintime != null" >
+        CheckInTime = #{checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdelete != null" >
+        IsDelete = #{isdelete,jdbcType=INTEGER},
+      </if>
+      <if test="altertime != null" >
+        AlterTime = #{altertime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where TeamId = #{teamid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.second.ssm.pojo.Truckteam" >
+    update truckteam
+    set TeamName = #{teamname,jdbcType=VARCHAR},
+      Leader = #{leader,jdbcType=VARCHAR},
+      Remark = #{remark,jdbcType=VARCHAR},
+      CheckInTime = #{checkintime,jdbcType=TIMESTAMP},
+      IsDelete = #{isdelete,jdbcType=INTEGER},
+      AlterTime = #{altertime,jdbcType=TIMESTAMP}
+    where TeamId = #{teamid,jdbcType=INTEGER}
+  </update>
+</mapper>

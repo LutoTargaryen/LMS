@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.second.ssm.mapper.SyslogMapper" >
+  <resultMap id="BaseResultMap" type="com.second.ssm.pojo.Syslog" >
+    <id column="LogID" property="logid" jdbcType="INTEGER" />
+    <result column="Behavior" property="behavior" jdbcType="VARCHAR" />
+    <result column="FK_TypeID" property="fkTypeid" jdbcType="INTEGER" />
+    <result column="FK_UserID" property="fkUserid" jdbcType="INTEGER" />
+    <result column="Parameters" property="parameters" jdbcType="VARCHAR" />
+    <result column="ProcName" property="procname" jdbcType="VARCHAR" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="CheckInTime" property="checkintime" jdbcType="TIMESTAMP" />
+    <result column="Exception" property="exception" jdbcType="VARCHAR" />
+    <result column="IsException" property="isexception" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    LogID, Behavior, FK_TypeID, FK_UserID, Parameters, ProcName, IP, CheckInTime, Exception, 
+    IsException
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.second.ssm.pojo.SyslogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from syslog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from syslog
+    where LogID = #{logid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from syslog
+    where LogID = #{logid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.second.ssm.pojo.SyslogExample" >
+    delete from syslog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.second.ssm.pojo.Syslog" >
+    insert into syslog (LogID, Behavior, FK_TypeID, 
+      FK_UserID, Parameters, ProcName, 
+      IP, CheckInTime, Exception, 
+      IsException)
+    values (#{logid,jdbcType=INTEGER}, #{behavior,jdbcType=VARCHAR}, #{fkTypeid,jdbcType=INTEGER}, 
+      #{fkUserid,jdbcType=INTEGER}, #{parameters,jdbcType=VARCHAR}, #{procname,jdbcType=VARCHAR}, 
+      #{ip,jdbcType=VARCHAR}, #{checkintime,jdbcType=TIMESTAMP}, #{exception,jdbcType=VARCHAR}, 
+      #{isexception,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.second.ssm.pojo.Syslog" >
+    insert into syslog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logid != null" >
+        LogID,
+      </if>
+      <if test="behavior != null" >
+        Behavior,
+      </if>
+      <if test="fkTypeid != null" >
+        FK_TypeID,
+      </if>
+      <if test="fkUserid != null" >
+        FK_UserID,
+      </if>
+      <if test="parameters != null" >
+        Parameters,
+      </if>
+      <if test="procname != null" >
+        ProcName,
+      </if>
+      <if test="ip != null" >
+        IP,
+      </if>
+      <if test="checkintime != null" >
+        CheckInTime,
+      </if>
+      <if test="exception != null" >
+        Exception,
+      </if>
+      <if test="isexception != null" >
+        IsException,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logid != null" >
+        #{logid,jdbcType=INTEGER},
+      </if>
+      <if test="behavior != null" >
+        #{behavior,jdbcType=VARCHAR},
+      </if>
+      <if test="fkTypeid != null" >
+        #{fkTypeid,jdbcType=INTEGER},
+      </if>
+      <if test="fkUserid != null" >
+        #{fkUserid,jdbcType=INTEGER},
+      </if>
+      <if test="parameters != null" >
+        #{parameters,jdbcType=VARCHAR},
+      </if>
+      <if test="procname != null" >
+        #{procname,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="checkintime != null" >
+        #{checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exception != null" >
+        #{exception,jdbcType=VARCHAR},
+      </if>
+      <if test="isexception != null" >
+        #{isexception,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.second.ssm.pojo.SyslogExample" resultType="java.lang.Integer" >
+    select count(*) from syslog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update syslog
+    <set >
+      <if test="record.logid != null" >
+        LogID = #{record.logid,jdbcType=INTEGER},
+      </if>
+      <if test="record.behavior != null" >
+        Behavior = #{record.behavior,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fkTypeid != null" >
+        FK_TypeID = #{record.fkTypeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.fkUserid != null" >
+        FK_UserID = #{record.fkUserid,jdbcType=INTEGER},
+      </if>
+      <if test="record.parameters != null" >
+        Parameters = #{record.parameters,jdbcType=VARCHAR},
+      </if>
+      <if test="record.procname != null" >
+        ProcName = #{record.procname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ip != null" >
+        IP = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkintime != null" >
+        CheckInTime = #{record.checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.exception != null" >
+        Exception = #{record.exception,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isexception != null" >
+        IsException = #{record.isexception,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update syslog
+    set LogID = #{record.logid,jdbcType=INTEGER},
+      Behavior = #{record.behavior,jdbcType=VARCHAR},
+      FK_TypeID = #{record.fkTypeid,jdbcType=INTEGER},
+      FK_UserID = #{record.fkUserid,jdbcType=INTEGER},
+      Parameters = #{record.parameters,jdbcType=VARCHAR},
+      ProcName = #{record.procname,jdbcType=VARCHAR},
+      IP = #{record.ip,jdbcType=VARCHAR},
+      CheckInTime = #{record.checkintime,jdbcType=TIMESTAMP},
+      Exception = #{record.exception,jdbcType=VARCHAR},
+      IsException = #{record.isexception,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.second.ssm.pojo.Syslog" >
+    update syslog
+    <set >
+      <if test="behavior != null" >
+        Behavior = #{behavior,jdbcType=VARCHAR},
+      </if>
+      <if test="fkTypeid != null" >
+        FK_TypeID = #{fkTypeid,jdbcType=INTEGER},
+      </if>
+      <if test="fkUserid != null" >
+        FK_UserID = #{fkUserid,jdbcType=INTEGER},
+      </if>
+      <if test="parameters != null" >
+        Parameters = #{parameters,jdbcType=VARCHAR},
+      </if>
+      <if test="procname != null" >
+        ProcName = #{procname,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        IP = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="checkintime != null" >
+        CheckInTime = #{checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exception != null" >
+        Exception = #{exception,jdbcType=VARCHAR},
+      </if>
+      <if test="isexception != null" >
+        IsException = #{isexception,jdbcType=INTEGER},
+      </if>
+    </set>
+    where LogID = #{logid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.second.ssm.pojo.Syslog" >
+    update syslog
+    set Behavior = #{behavior,jdbcType=VARCHAR},
+      FK_TypeID = #{fkTypeid,jdbcType=INTEGER},
+      FK_UserID = #{fkUserid,jdbcType=INTEGER},
+      Parameters = #{parameters,jdbcType=VARCHAR},
+      ProcName = #{procname,jdbcType=VARCHAR},
+      IP = #{ip,jdbcType=VARCHAR},
+      CheckInTime = #{checkintime,jdbcType=TIMESTAMP},
+      Exception = #{exception,jdbcType=VARCHAR},
+      IsException = #{isexception,jdbcType=INTEGER}
+    where LogID = #{logid,jdbcType=INTEGER}
+  </update>
+</mapper>

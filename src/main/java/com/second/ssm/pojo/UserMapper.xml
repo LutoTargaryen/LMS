@@ -4,12 +4,25 @@
   <resultMap id="BaseResultMap" type="com.second.ssm.pojo.User" >
     <id column="UserID" property="userid" jdbcType="INTEGER" />
     <result column="UserName" property="username" jdbcType="VARCHAR" />
-    <result column="Sex" property="sex" jdbcType="INTEGER" />
+    <result column="Sex" property="sex" jdbcType="VARCHAR" />
     <result column="Account" property="account" jdbcType="VARCHAR" />
     <result column="Password" property="password" jdbcType="VARCHAR" />
     <result column="Phone" property="phone" jdbcType="VARCHAR" />
     <result column="Email" property="email" jdbcType="VARCHAR" />
     <result column="FK_RoleID" property="fkRoleid" jdbcType="INTEGER" />
+    <result column="CheckInTime" property="checkintime" jdbcType="TIMESTAMP" />
+    <result column="IsDelete" property="isdelete" jdbcType="INTEGER" />
+    <result column="AlterTime" property="altertime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap type="com.second.ssm.vp.VUser" id="VUserResultMap">
+      <id column="UserID" property="userid" jdbcType="INTEGER" />
+    <result column="UserName" property="username" jdbcType="VARCHAR" />
+    <result column="Sex" property="sex" jdbcType="VARCHAR" />
+    <result column="Account" property="account" jdbcType="VARCHAR" />
+    <result column="Password" property="password" jdbcType="VARCHAR" />
+    <result column="Phone" property="phone" jdbcType="VARCHAR" />
+    <result column="Email" property="email" jdbcType="VARCHAR" />
+    <result column="RoleName" property="roleName" jdbcType="VARCHAR" />
     <result column="CheckInTime" property="checkintime" jdbcType="TIMESTAMP" />
     <result column="IsDelete" property="isdelete" jdbcType="INTEGER" />
     <result column="AlterTime" property="altertime" jdbcType="TIMESTAMP" />
@@ -111,7 +124,7 @@
       Account, Password, Phone, 
       Email, FK_RoleID, CheckInTime, 
       IsDelete, AlterTime)
-    values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, 
+    values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
       #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{fkRoleid,jdbcType=INTEGER}, #{checkintime,jdbcType=TIMESTAMP}, 
       #{isdelete,jdbcType=INTEGER}, #{altertime,jdbcType=TIMESTAMP})
@@ -161,7 +174,7 @@
         #{username,jdbcType=VARCHAR},
       </if>
       <if test="sex != null" >
-        #{sex,jdbcType=INTEGER},
+        #{sex,jdbcType=VARCHAR},
       </if>
       <if test="account != null" >
         #{account,jdbcType=VARCHAR},
@@ -205,7 +218,7 @@
         UserName = #{record.username,jdbcType=VARCHAR},
       </if>
       <if test="record.sex != null" >
-        Sex = #{record.sex,jdbcType=INTEGER},
+        Sex = #{record.sex,jdbcType=VARCHAR},
       </if>
       <if test="record.account != null" >
         Account = #{record.account,jdbcType=VARCHAR},
@@ -240,7 +253,7 @@
     update user
     set UserID = #{record.userid,jdbcType=INTEGER},
       UserName = #{record.username,jdbcType=VARCHAR},
-      Sex = #{record.sex,jdbcType=INTEGER},
+      Sex = #{record.sex,jdbcType=VARCHAR},
       Account = #{record.account,jdbcType=VARCHAR},
       Password = #{record.password,jdbcType=VARCHAR},
       Phone = #{record.phone,jdbcType=VARCHAR},
@@ -260,7 +273,7 @@
         UserName = #{username,jdbcType=VARCHAR},
       </if>
       <if test="sex != null" >
-        Sex = #{sex,jdbcType=INTEGER},
+        Sex = #{sex,jdbcType=VARCHAR},
       </if>
       <if test="account != null" >
         Account = #{account,jdbcType=VARCHAR},
@@ -292,7 +305,7 @@
   <update id="updateByPrimaryKey" parameterType="com.second.ssm.pojo.User" >
     update user
     set UserName = #{username,jdbcType=VARCHAR},
-      Sex = #{sex,jdbcType=INTEGER},
+      Sex = #{sex,jdbcType=VARCHAR},
       Account = #{account,jdbcType=VARCHAR},
       Password = #{password,jdbcType=VARCHAR},
       Phone = #{phone,jdbcType=VARCHAR},
@@ -303,4 +316,24 @@
       AlterTime = #{altertime,jdbcType=TIMESTAMP}
     where UserID = #{userid,jdbcType=INTEGER}
   </update>
+  <select id="login" resultMap="BaseResultMap" parameterType="com.second.ssm.pojo.User" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where Account = #{account} AND Password = #{password}
+  </select>
+  <select id="getAllUsers" resultMap="VUserResultMap">
+      SELECT 
+      UserID,UserName,Sex,Account,Password,Phone,Email,RoleName,CheckInTime,AlterTime,IsDelete 
+      FROM user JOIN role 
+      ON `user`.FK_RoleID = RoleID
+      WHERE IsDelete > 0
+  </select>
+  <select id="getUserById" resultMap="VUserResultMap" parameterType="java.lang.Integer" >
+    SELECT 
+      UserID,UserName,Sex,Account,Password,Phone,Email,RoleName,CheckInTime,AlterTime,IsDelete 
+      FROM user JOIN role 
+      ON `user`.FK_RoleID = RoleID
+      WHERE UserID = #{userId}
+  </select>
 </mapper>

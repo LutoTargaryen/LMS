@@ -1,39 +1,33 @@
 package com.second.ssm.pojo;
 
-/**
- * 角色实体类
- * 
- * @author role
- *
- */
 public class Role {
-	private Integer roleid;
+    private Integer roleid;
 
-	private String rolename;
+    private String rolename;
 
-	private String rolepurview;
+    private String rolepurview;
 
-	public Integer getRoleid() {
-		return roleid;
-	}
+    public Integer getRoleid() {
+        return roleid;
+    }
 
-	public void setRoleid(Integer roleid) {
-		this.roleid = roleid;
-	}
+    public void setRoleid(Integer roleid) {
+        this.roleid = roleid;
+    }
 
-	public String getRolename() {
-		return rolename;
-	}
+    public String getRolename() {
+        return rolename;
+    }
 
-	public void setRolename(String rolename) {
-		this.rolename = rolename == null ? null : rolename.trim();
-	}
+    public void setRolename(String rolename) {
+        this.rolename = rolename == null ? null : rolename.trim();
+    }
 
-	public String getRolepurview() {
-		return rolepurview;
-	}
+    public String getRolepurview() {
+        return rolepurview;
+    }
 
-	public void setRolepurview(String rolepurview) {
-		this.rolepurview = rolepurview == null ? null : rolepurview.trim();
-	}
+    public void setRolepurview(String rolepurview) {
+        this.rolepurview = rolepurview == null ? null : rolepurview.trim();
+    }
 }

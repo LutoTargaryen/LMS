@@ -2,18 +2,14 @@ package com.second.ssm.pojo;
 
 import java.util.Date;
 
-/**
- * 用户实体类
- * 
- * @author luto
- *
- */
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class User {
 	private Integer userid;
 
 	private String username;
 
-	private Integer sex;
+	private String sex;
 
 	private String account;
 
@@ -25,10 +21,12 @@ public class User {
 
 	private Integer fkRoleid;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date checkintime;
 
 	private Integer isdelete;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date altertime;
 
 	public Integer getUserid() {
@@ -47,12 +45,12 @@ public class User {
 		this.username = username == null ? null : username.trim();
 	}
 
-	public Integer getSex() {
+	public String getSex() {
 		return sex;
 	}
 
-	public void setSex(Integer sex) {
-		this.sex = sex;
+	public void setSex(String sex) {
+		this.sex = sex == null ? null : sex.trim();
 	}
 
 	public String getAccount() {

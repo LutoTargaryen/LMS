@@ -9,21 +9,26 @@ import com.second.ssm.mapper.RoleMapper;
 import com.second.ssm.pojo.Role;
 import com.second.ssm.service.RoleService;
 
+/**
+ * 角色service接口实现
+ * 
+ * @author luto
+ *
+ */
 @Service("roleService")
 public class RoleServiceImpl implements RoleService {
 
 	@Autowired
-	private RoleMapper rolemapper;
+	private RoleMapper roleMapper;
 
 	@Override
-	public List<Role> selectRoles() {
-
-		return rolemapper.selectByExample(null);
+	public Role selectRoleById(Integer Id) {
+		return roleMapper.selectByPrimaryKey(Id);
 	}
 
 	@Override
-	public void addRole(Role role) {
-		rolemapper.insert(role);
+	public List<Role> getAllRoles() {
+		return roleMapper.selectByExample(null);
 	}
 
 }

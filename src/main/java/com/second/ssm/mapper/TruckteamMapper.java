@@ -1,30 +1,35 @@
 package com.second.ssm.mapper;
 
-import com.second.ssm.pojo.Truckteam;
-import com.second.ssm.pojo.TruckteamExample;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
+import com.second.ssm.pojo.Truckteam;
+import com.second.ssm.pojo.TruckteamExample;
+
 public interface TruckteamMapper {
-    int countByExample(TruckteamExample example);
+	int countByExample(TruckteamExample example);
 
-    int deleteByExample(TruckteamExample example);
+	int deleteByExample(TruckteamExample example);
 
-    int deleteByPrimaryKey(Integer teamid);
+	int deleteByPrimaryKey(Integer teamid);
 
-    int insert(Truckteam record);
+	int insert(Truckteam record);
 
-    int insertSelective(Truckteam record);
+	int insertSelective(Truckteam record);
 
-    List<Truckteam> selectByExample(TruckteamExample example);
+	List<Truckteam> selectByExample(TruckteamExample example);
 
-    Truckteam selectByPrimaryKey(Integer teamid);
+	Truckteam selectByPrimaryKey(Integer teamid);
 
-    int updateByExampleSelective(@Param("record") Truckteam record, @Param("example") TruckteamExample example);
+	int updateByExampleSelective(@Param("record") Truckteam record,
+			@Param("example") TruckteamExample example);
 
-    int updateByExample(@Param("record") Truckteam record, @Param("example") TruckteamExample example);
+	int updateByExample(@Param("record") Truckteam record,
+			@Param("example") TruckteamExample example);
 
-    int updateByPrimaryKeySelective(Truckteam record);
+	int updateByPrimaryKeySelective(Truckteam record);
 
-    int updateByPrimaryKey(Truckteam record);
+	int updateByPrimaryKey(Truckteam record);
+
 }

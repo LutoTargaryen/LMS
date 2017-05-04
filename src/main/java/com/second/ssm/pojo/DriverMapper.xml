@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.second.ssm.pojo.Driver" >
     <id column="DriverID" property="driverid" jdbcType="INTEGER" />
     <result column="Name" property="name" jdbcType="VARCHAR" />
-    <result column="Sex" property="sex" jdbcType="INTEGER" />
+    <result column="Sex" property="sex" jdbcType="VARCHAR" />
     <result column="Birth" property="birth" jdbcType="TIMESTAMP" />
     <result column="Phone" property="phone" jdbcType="VARCHAR" />
     <result column="IDCard" property="idcard" jdbcType="VARCHAR" />
@@ -111,7 +111,7 @@
       Birth, Phone, IDCard, 
       FK_TeamID, State, CheckInTime, 
       IsDelete, AlterTime)
-    values (#{driverid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, 
+    values (#{driverid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
       #{birth,jdbcType=TIMESTAMP}, #{phone,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR}, 
       #{fkTeamid,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, #{checkintime,jdbcType=TIMESTAMP}, 
       #{isdelete,jdbcType=INTEGER}, #{altertime,jdbcType=TIMESTAMP})
@@ -161,7 +161,7 @@
         #{name,jdbcType=VARCHAR},
       </if>
       <if test="sex != null" >
-        #{sex,jdbcType=INTEGER},
+        #{sex,jdbcType=VARCHAR},
       </if>
       <if test="birth != null" >
         #{birth,jdbcType=TIMESTAMP},
@@ -205,7 +205,7 @@
         Name = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.sex != null" >
-        Sex = #{record.sex,jdbcType=INTEGER},
+        Sex = #{record.sex,jdbcType=VARCHAR},
       </if>
       <if test="record.birth != null" >
         Birth = #{record.birth,jdbcType=TIMESTAMP},
@@ -240,7 +240,7 @@
     update driver
     set DriverID = #{record.driverid,jdbcType=INTEGER},
       Name = #{record.name,jdbcType=VARCHAR},
-      Sex = #{record.sex,jdbcType=INTEGER},
+      Sex = #{record.sex,jdbcType=VARCHAR},
       Birth = #{record.birth,jdbcType=TIMESTAMP},
       Phone = #{record.phone,jdbcType=VARCHAR},
       IDCard = #{record.idcard,jdbcType=VARCHAR},
@@ -260,7 +260,7 @@
         Name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="sex != null" >
-        Sex = #{sex,jdbcType=INTEGER},
+        Sex = #{sex,jdbcType=VARCHAR},
       </if>
       <if test="birth != null" >
         Birth = #{birth,jdbcType=TIMESTAMP},
@@ -292,7 +292,7 @@
   <update id="updateByPrimaryKey" parameterType="com.second.ssm.pojo.Driver" >
     update driver
     set Name = #{name,jdbcType=VARCHAR},
-      Sex = #{sex,jdbcType=INTEGER},
+      Sex = #{sex,jdbcType=VARCHAR},
       Birth = #{birth,jdbcType=TIMESTAMP},
       Phone = #{phone,jdbcType=VARCHAR},
       IDCard = #{idcard,jdbcType=VARCHAR},

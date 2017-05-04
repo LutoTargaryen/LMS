@@ -1,0 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	String baseUrl = request.getContextPath();
+	request.setAttribute("baseUrl", baseUrl);
+%>
+<link rel="stylesheet" href="${baseUrl }/easyui/themes/default/easyui.css" type="text/css" />
+<link rel="stylesheet" href="${baseUrl }/easyui/themes/icon.css" type="text/css" />
+<script type="text/javascript" src="${baseUrl }/easyui/jquery.min.js" ></script>
+<script type="text/javascript" src="${baseUrl }/easyui/jquery.easyui.min.js" ></script>
+<script type="text/javascript" src="${baseUrl }/easyui/locale/easyui-lang-zh_CN.js" ></script>

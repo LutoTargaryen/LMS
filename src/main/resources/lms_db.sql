@@ -190,7 +190,7 @@ CREATE TABLE `syslog` (
 -- Table structure for truck
 -- ----------------------------
 DROP TABLE IF EXISTS `truck`;
-CREATE TABLE `truck` (
+REATE TABLE `truck` (
   `TruckID` int(11) NOT NULL AUTO_INCREMENT,
   `Number` varchar(255) DEFAULT NULL,
   `BuyDate` datetime DEFAULT NULL,
@@ -200,8 +200,7 @@ CREATE TABLE `truck` (
   `FK_TeamID` int(11) DEFAULT NULL,
   `State` int(11) DEFAULT NULL,
   `CheckInTime` datetime DEFAULT NULL,
-  `IsDelete` int(11) DEFAULT NULL,
-  `AlterTime` datetime DEFAULT NULL,
+  `IsDelete` int(11) DEFAULT NULL,  `AlterTime` datetime DEFAULT NULL,
   PRIMARY KEY (`TruckID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
@@ -254,5 +253,5 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', '罗涛', '男', 'luto', '123', '12321123', '123@qq.com', '1', '2017-04-03 11:57:30', '1', '2017-04-04 11:57:37');
+INSERT INTO `user` VALUES ('1', '史塔克', '男', 'luto', '123', '12321123', '123@qq.com', '1', '2017-04-03 11:57:30', '1', '2017-04-04 11:57:37');
 INSERT INTO `user` VALUES ('9', 'luto', '男', 'stark', '123', '123', '123@qq.com', '2', '2017-05-04 11:26:50', '1', '2017-05-04 09:00:15');
